@@ -1,0 +1,174 @@
+<section class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" *ngIf="loader">
+    <section>
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+    </section>
+</section>
+
+<section *ngIf="!loader" class="container mx-auto px-4 sm:px-8 mt-4">
+    <div class="flex justify-between">
+        <h1 class="text-2xl font-bold ">Employees</h1>
+        <button class="bg-sky-600 text-white px-6 py-3 font-semibold hover:bg-opacity-10 hover:text-black" [routerLink]="'/admin/emp/create'">Add Employee</button>
+    </div>
+    
+
+    <div class="py-8">
+        <div class="grid grid-cols-1 ">
+            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-x-auto">
+                <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                    <table class="min-w-full leading-normal overflow-x-auto">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">
+                                    <div>
+
+                                    </div>
+
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">
+                                    <div>
+                                        Name
+                                    </div>
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    <div>
+                                        Email
+                                    </div>
+
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    <div>
+                                        Role
+                                    </div>
+
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    <div>
+                                        Salary
+                                    </div>
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of empList">
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm font-bold">
+                                    <img *ngIf="data?.imageURL" [src]="serverURL+data?.imageURL" alt=""
+                                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                    <img *ngIf="!data?.imageURL"
+                                        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt=""
+                                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{data?.name}}</p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{data?.email}}</p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{data?.role}}</p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{data?.salary}} AED</p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+                                    <div>
+                                        <button mat-icon-button [matMenuTriggerFor]="more">
+                                            <span class="material-symbols-outlined cursor-pointer">
+                                                more_vert
+                                            </span>
+                                        </button>
+                                        <mat-menu #more="matMenu" xPosition="before">
+                                            <!-- <button mat-menu-item [routerLink]="">
+                                                <span>Delete Activity</span>
+                                            </button> -->
+                                            <button mat-menu-item (click)="openPerformance(data?._id)">
+
+                                                <span>Add Performance</span>
+
+                                            </button>
+                                        </mat-menu>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section *ngIf="isPerformance">
+    <form [formGroup]="addPerformance" class="w-full">
+        <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+            style="background: rgba(0,0,0,.7);">
+            <div
+                class="border border-teal-500 modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div class="modal-content py-4 text-left px-6">
+                    <!--Title-->
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-md font-semibold ">Add Performance</p>
+                        <div class="modal-close cursor-pointer z-50" (click)="closePerformance()">
+                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                height="18" viewBox="0 0 18 18">
+                                <path
+                                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!--Body-->
+                    <div class="mt-2">
+                        <div class="mb-4">
+                            <label class="text-sm font-medium">Description <span class="text-[#FA003F]">*</span></label>
+                            <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md  mt-2 bg-white">
+                                <input class="pl-2 pt-1 outline-none border-none w-full" formControlName="title"
+                                    type="text" name="" id="" placeholder="Enter Performance Description" />
+                            </div>
+
+                        </div>
+                        <label class="text-sm font-medium">Rating <span class="text-[#FA003F]">*</span></label>
+                        <div class="flex justify-center mb-4">
+                            <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block"
+                                style="display: inline-block">
+                                <li #namebutton (click)="countStar(star)"
+                                    [ngClass]="{'selected': (star <= addPerformance.value.rating)}">
+                                     <i class="fa fa-star"></i>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Footer-->
+                    <div class="flex justify-end pt-2">
+                        <button
+                            class="bg-gray-400 text-white px-6 py-3 font-semibold hover:bg-opacity-10 hover:text-black"
+                            (click)="closePerformance()">Cancel</button>
+                        <button
+                            class="ms-4 bg-sky-600 text-white px-6 py-3 font-semibold hover:bg-opacity-10 hover:text-black"
+                            (click)="createPerformance()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

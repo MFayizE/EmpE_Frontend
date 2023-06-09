@@ -1,0 +1,89 @@
+<section>
+    <form [formGroup]="createEmpForm" class="w-full">
+        <div class="w-full  px-4 mx-auto mt-4">
+            <h1 class="text-2xl font-bold mb-8">Create Employee</h1>
+
+            <div>
+                <div class="col-12 margin-tm-10" style="margin-bottom: 20px;">
+                    <input type="file" class="file hidden" #imgRef accept="image/*" (change)="uploadMedia($event)">
+                </div>
+                <div class="profile-icon flex justify-center align-middle text-center" [ngClass]="{'profile-icon-img': uploadedMedia}">
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" *ngIf="!uploadedMedia" style="width: 150px; height: 150px; cursor: pointer;" alt="" (click)="imgRef.click()">
+                        <img [src]="url" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; cursor: pointer;" *ngIf="uploadedMedia" (click)="imgRef.click()">
+                        <br>
+                    </div>
+                    
+                </div>
+            </div>
+            <div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Name <span class="text-[#FA003F]">*</span></label>
+                        <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md  mt-2 bg-white">
+                            <input class="pl-2 pt-1 outline-none border-none w-full" formControlName="name" type="text"
+                                name="" id="" placeholder="Enter Full Name" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Email <span class="text-[#FA003F]">*</span></label>
+                        <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md  mt-2 bg-white">
+                            <input class="pl-2 pt-1 outline-none border-none w-full" formControlName="email" type="text"
+                                name="" id="" placeholder="Enter Email Address" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Password <span class="text-[#FA003F]">*</span></label>
+                        <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md  mt-2 bg-white">
+                            <input class="pl-2 pt-1 outline-none border-none w-full" formControlName="password"
+                                type="text" name="" id="" placeholder="Enter Password" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Confirm Password <span
+                                class="text-[#FA003F]">*</span></label>
+                        <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md  mt-2 bg-white">
+                            <input class="pl-2 pt-1 outline-none border-none w-full" formControlName="confirmPassword"
+                                type="text" name="" id="" placeholder="Confirm Password" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Salary <span class="text-[#FA003F]">*</span></label>
+                        <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md  mt-2 bg-white">
+                            <input class="pl-2 pt-1 outline-none border-none w-full" formControlName="salary"
+                                type="text" name="" id="" placeholder="Enter Password" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Role <span class="text-[#FA003F]">*</span></label>
+                        <div class="flex items-center border-2 py-3 pb-4 px-3 rounded-md mb-4 mt-2 bg-white">
+                            <select class="pl-2 pt-1 outline-none border-none w-full" formControlName="role">
+                                <option class=" outline-none border-none w-full" value="" selected disabled>Choose
+                                </option>
+                                <option class=" outline-none border-none w-full" value="HR">HR</option>
+                                <option class=" outline-none border-none w-full" value="Tester">Tester</option>
+                                <option class=" outline-none border-none w-full" value="Developer">Developer</option>
+                                <option class=" outline-none border-none w-full" value="UI">UI/UX Designer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+             
+
+
+            </div>
+            <button (click)="onClickSubmit()" class="bg-sky-600 text-white px-6 py-3 font-semibold hover:bg-opacity-10 hover:text-black">Submit</button>
+        </div>
+
+
+    </form>
+</section>

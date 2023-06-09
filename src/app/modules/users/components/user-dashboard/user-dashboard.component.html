@@ -1,0 +1,98 @@
+<section class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" *ngIf="loader">
+    <section>
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+    </section>
+</section>
+
+<section *ngIf="!loader">
+    <div class="w-full">
+        <div class="w-full  px-4 mx-auto mt-4 flex justify-center align-middle text-center">
+            <div class="bg-[#FCF8F3] px-40 py-10 rounded-xl">
+                <div class="mb-4">
+                    <img [src]="serverURL+userData?.imageURL" alt="" *ngIf="userData?.imageURL"
+                        style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;">
+                    <img src="" alt="" *ngIf="!userData?.imageURL"
+                        style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <div class="mb-2 text-2xl ">
+                   Name : <span class="font-bold">{{userData?.name}} </span>
+                </div>
+                <div class="mb-2 text-lg font-medium">
+                    Role : <span class="font-bold">{{userData?.role}} </span>
+                </div>
+                <div class="mb-2 text-lg font-medium">
+                    Email : <span class="font-bold">{{userData?.email}} </span>
+                </div>
+                <div class="mb-2 text-lg font-medium">
+                    Salary : <span class="font-bold">{{userData?.salary}} </span>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="w-full  px-4 mx-auto mt-4" *ngIf="userData?.performance?.length">
+            
+            <div class="bg-[#FCF8F3] px-8 py-5 rounded-xl">
+                <div class="flex justify-center text-xl font-bold mb-4">
+                    Performance
+                </div>
+                <table class="min-w-full leading-normal overflow-x-auto">
+                    <thead>
+                        <tr>
+                            <th
+                                class="px-5 py-3 border-b-8 border-[#FCF8F3]  bg-white text-left text-xs font-bold text-black uppercase tracking-wider ">
+                                <div>
+                                    Description
+                                </div>
+                            </th>
+                            <th
+                                class="px-5 py-3  border-b-8 border-[#FCF8F3] bg-white text-left text-xs font-bold text-black uppercase tracking-wider">
+                                <div>
+                                    Added By
+                                </div>
+
+                            </th>
+                            <th
+                                class="px-5 py-3 border-b-8 border-[#FCF8F3]  bg-white text-left text-xs font-bold text-black uppercase tracking-wider">
+                                <div>
+                                    Rating
+                                </div>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of userData?.performance" class="">
+                            <td class="px-5 py-5 border-b-8 border-[#FCF8F3] bg-white text-sm">
+                                <p class="text-gray-900 whitespace-no-wrap">{{data?.title}}</p>
+                            </td>
+                            <td class="px-5 py-5 border-b-8 border-[#FCF8F3] bg-white text-sm">
+                                <p class="text-gray-900 whitespace-no-wrap">{{data?.addedBy?.name}}</p>
+                            </td>
+                            <td class="px-5 py-5 border-b-8 border-[#FCF8F3] bg-white text-sm">
+                                <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block"
+                                style="display: inline-block">
+                                <li #namebutton 
+                                    [ngClass]="{'selected': (star <= data?.rating)}">
+                                     <i class="fa fa-star"></i>
+                            </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

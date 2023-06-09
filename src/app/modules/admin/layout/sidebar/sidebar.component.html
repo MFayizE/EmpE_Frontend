@@ -1,0 +1,30 @@
+<div [ngClass]="{
+    'w-56': open,
+    'hidden': !open,
+    'duration-500': true,
+    'text-black': true,
+    'p-4': true,
+    'bg-[#FCF8F3]': true,
+    'min-h-[85vh]': true}">
+  
+  
+    <div class="flex flex-col gap-1 relative font-bold">
+      <a *ngFor="let menu of menus; let i = index" >
+        <div (click)="openSubmenu(i, false)" routerLinkActive="bg-sky-600 bg-opacity-10 text-sky-600" [routerLinkActiveOptions]="{exact: true}" [routerLink]="menu.link" class="cursor-pointer group flex justify-between items-center text-sm gap-3.5 p-2 hover:bg-sky-600 hover:bg-opacity-10 hover:text-sky-600 rounded-md">
+          <h2 class="whitespace-pre duration-500" [ngClass]="{'hidden': !open}">{{menu.name}}</h2>
+          <!-- <div>
+            <i class="material-symbols-outlined" style="font-size: 20px;" *ngIf="submenuIndex !== i">{{menu.icon}}</i>
+            <i class="material-symbols-outlined" style="font-size: 20px;" *ngIf="submenuIndex > -1 && submenuIndex === i">{{menu.icon2}}</i>
+          </div> -->
+        </div>
+        <div *ngIf="menu.hasSubmenu && submenuIndex === i" class="cursor-pointer bg-white rounded-md border-gray-100 ml-2 mt-2 z-10">
+          <!-- <a *ngFor="let submenu of menu.submenus" [routerLink]="submenu.link"  routerLinkActive="text-black bg-[#BBBBBB] text-opacity-50 bg-opacity-10" class="group flex items-center text-xs gap-3.5 font-semibold p-1 text-black/50 hover:bg-[#BBBBBB] hover:bg-opacity-10 hover:text-black hover:bg-text-50 rounded-md mb-1" (click)="openSubmenu(i, true)">
+            <h2 class="whitespace-pre duration-500" [ngClass]="{'hidden': !open}">{{submenu.name}}</h2>
+          </a> -->
+        </div>
+      </a>
+    </div>
+  
+  
+  
+  </div>
