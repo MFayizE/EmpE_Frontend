@@ -43,20 +43,26 @@ export class CreateEmpComponent implements OnInit{
 
   async onClickSubmit() {
     try {
-      const fd = new FormData();
-      fd.append('profileImage', this.uploadedMedia);
-      fd.append('name', this.createEmpForm.value.name);
-      fd.append('email', this.createEmpForm.value.email);
-      fd.append('password', this.createEmpForm.value.password);
-      fd.append('role', this.createEmpForm.value.role);
-      fd.append('salary', this.createEmpForm.value.salary);
-      this.toastr.info("Please Wait, Creating Employee!");
-      const result$ = this.web.createUser(fd);
-      const res = await lastValueFrom(result$);
-      if (res) {
-        this.toastr.success("Employee created successfully!");
-        console.log('res: ', res);
+      if(this.createEmpForm.value.password == this.createEmpForm.value.confirmPassword){
+        const fd = new FormData();
+        fd.append('profileImage', this.uploadedMedia);
+        fd.append('name', this.createEmpForm.value.name);
+        fd.append('email', this.createEmpForm.value.email);
+        fd.append('password', this.createEmpForm.value.password);
+        fd.append('role', this.createEmpForm.value.role);
+        fd.append('salary', this.createEmpForm.value.salary);
+        this.toastr.info("Please Wait, Creating Employee!");
+        const result$ = this.web.createUser(fd);
+        const res = await lastValueFrom(result$);
+        if (res) {
+          this.toastr.success("Employee created successfully!");
+          console.log('res: ', res);
+        }
       }
+      else{
+        this.toastr.error("Password does not match!");
+      }
+      
     } catch (error) {
       this.toastr.error("Something went wrong!");
       // Handle error
